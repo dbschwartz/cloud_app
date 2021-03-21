@@ -26,7 +26,7 @@ coverage
 .nyc_output
 
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
-.grunt
+.gruntm-
 
 # Bower dependency directory (https://bower.io/)
 bower_components
@@ -105,3 +105,18 @@ dist
 
 # Mac System Files
 .DS_Store
+
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

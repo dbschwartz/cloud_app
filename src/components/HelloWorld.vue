@@ -35,6 +35,11 @@ export default {
   name: 'HelloWorld',
   props: {
     msg: String
+  },
+  mounted: async function () {
+    const users = await this.$jumpService.getUsers();
+    console.log(users);
+
   }
 }
 </script>
