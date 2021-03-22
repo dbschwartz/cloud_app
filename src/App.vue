@@ -12,6 +12,16 @@ export default {
   name: 'App',
   components: {
     HelloWorld
+  },
+data: function () {
+  return {
+    users: []
+  }
+},
+  mounted: async function () {
+    this.users = await this.$jumpService.getUsers();
+    
+
   }
 }
 </script>
