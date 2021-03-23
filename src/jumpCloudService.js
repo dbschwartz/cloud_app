@@ -13,8 +13,8 @@ export class JumpCloudService {
     
     // Getter
     async getUsers() {
-       const users  = await this.instance.get('/systemusers');
-       return users;
+       const response  = await this.instance.get('/systemusers');
+       return response.data.results;
     }
     // Method
     calcArea() {

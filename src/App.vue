@@ -1,38 +1,32 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+    </v-app-bar>
+
+    <v-main>
+      <DataTable :users="users"/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+//mport HelloWorld from './components/HelloWorld';
+import DataTable from './components/DataTable';
 export default {
   name: 'App',
+  data: () => ({
+     users: [1]
+    }),
   components: {
-    HelloWorld
+    DataTable
   },
-data: function () {
-  return {
-    users: []
-  }
-},
-  mounted: async function () {
-    this.users = await this.$jumpService.getUsers();
-    
-
-  }
+  async created () {
+    this.users = await this.$jCloudService.getUsers();
 }
+
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
