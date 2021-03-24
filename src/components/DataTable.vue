@@ -16,11 +16,15 @@
           @save="save"
           @reset="reset"
         />
+        <delete-user
+         :dialogDelete="dialogDelete" 
+         @delete-item="deleteItem"          
+        />
       </v-toolbar>
     </template>
     <template v-slot:item.actions="{ item }">
       <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
-      <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+      <v-icon small @click="deleteDialogFn(item)"> mdi-delete </v-icon>
     </template>
     <template v-slot:no-data>
       <v-btn color="primary" @click="getUsers"> Reset </v-btn>
@@ -30,6 +34,7 @@
 
 <script>
 import CreateOrEditUser from "./CreateOrEditUser.vue";
+import DeleteUser from './DeleteUser.vue';
 export default {
   name: "DataTable",
   data: () => ({
@@ -53,8 +58,9 @@ export default {
       email: "",
     },
     inEditMode: false,
+    dialogDelete: false
   }),
-  components: { CreateOrEditUser },
+  components: { CreateOrEditUser, DeleteUser },
   created() {
     this.getUsers();
   },
@@ -80,6 +86,21 @@ export default {
       this.editedItem = Object.assign({}, item);
       this.inEditMode = true;
     },
+    async deleteItem (flag) {
+        this.dialogDelete = false
+        if (flag === "confirm") {
+          await this.$jCloudService.deleteUser(this.editedItem._id);
+          await this.getUsers();
+        }
+        this.$nextTick(() => {
+          this.reset();
+        })
+      },
+    deleteDialogFn (item) {
+        this.editedIndex = this.users.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialogDelete = true
+      },
     async save() {
       try {
         if (this.editedIndex > -1) {

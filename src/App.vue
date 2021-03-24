@@ -6,7 +6,6 @@
       dark
     >
     </v-app-bar>
-
     <v-main>
       <DataTable/>
     </v-main>

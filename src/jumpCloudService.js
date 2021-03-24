@@ -46,4 +46,8 @@ export class JumpCloudService {
     const response  = await this.instance.put(`/systemusers/${_id}`, editedUser);
     return response.data.results;
  }
+ async deleteUser(deletedUserId) {
+  const response  = await this.instance.delete(`/systemusers/${deletedUserId}`)
+  return response.data.results;
+}
   }
