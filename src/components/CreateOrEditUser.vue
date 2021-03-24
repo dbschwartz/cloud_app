@@ -52,17 +52,15 @@
 <script>
 
 export default {
-  name: "newuser",
-
-  data: () => ({
-    dialog: false,
-    editedIndex: -1,
+  name: "CreateOrEditUser",
+props: {
     editedItem: {
-      firstname: '',
-      lastname: '',
-      username: '',
-      email: ''
-    },
+      type: Object,
+      required: true
+    }
+},
+  data: () => ({
+    dialog: false
   }),
   computed: {
     formTitle() {
@@ -70,20 +68,17 @@ export default {
     },
   },
   methods: {
-    close: function () {
+    close () {
       this.dialog = false;
       this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1;
+        this.$emit("reset")
       });
     },
     save () {
       if (this.editedIndex > -1) {
           //
       } else {
-          const {firstname, lastname, username, email} = this.editedItem;
-          console.log({firstname, lastname, username, email});
-        this.$emit("new-user", {firstname, lastname, username, email})
+        this.$emit("save")
       }
       this.close()
     }
