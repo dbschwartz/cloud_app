@@ -57,6 +57,10 @@ props: {
     editedItem: {
       type: Object,
       required: true
+    },
+    inEditMode: {
+      type:Boolean,
+      required: true
     }
 },
   data: () => ({
@@ -75,17 +79,16 @@ props: {
       });
     },
     save () {
-      if (this.editedIndex > -1) {
-          //
-      } else {
-        this.$emit("save")
-      }
+      this.$emit("save")
       this.close()
     }
   },
    watch: {
     dialog (val) {
       val || this.close()
+    },
+    inEditMode (val) {
+      this.dialog = val;
     },
    }
 };
