@@ -50,6 +50,7 @@
 
 
 <script>
+
 export default {
   name: "newuser",
 
@@ -76,6 +77,16 @@ export default {
         this.editedIndex = -1;
       });
     },
+    save () {
+      if (this.editedIndex > -1) {
+          //
+      } else {
+          const {firstname, lastname, username, email} = this.editedItem;
+          console.log({firstname, lastname, username, email});
+        this.$emit("new-user", {firstname, lastname, username, email})
+      }
+      this.close()
+    }
   },
    watch: {
     dialog (val) {

@@ -16,8 +16,9 @@ export class JumpCloudService {
        const response  = await this.instance.get('/systemusers');
        return response.data.results;
     }
-    // Method
-    calcArea() {
-      return this.height * this.width;
-    }
+
+    async newUser(newUser) {
+      const response  = await this.instance.post('/systemusers', newUser);
+      return response.data.results;
+   }
   }

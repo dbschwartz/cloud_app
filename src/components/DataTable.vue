@@ -17,7 +17,7 @@
             vertical
           ></v-divider>
           <v-spacer></v-spacer>
-          <newuser />
+          <newuser @new-user="handleNewUser"/>
         </v-toolbar>
     </template>
   </v-data-table>
@@ -30,6 +30,7 @@ export default
 {
   name: "DataTable",
     data: () => ({
+      users: [],
       headers: [
       {
         text: 'First Name',
@@ -42,11 +43,24 @@ export default
     ]
   }),
 components: { newuser },
-  props: {
-    users: {
-      type: Array,
-      required: true,
-    },
-  },
+   created () {
+    this.getUsers()
+},
+methods: {
+ getUsers: async function() {
+          this.users = await this.$jCloudService.getUsers();
+
+ },
+handleNewUser: async function(newUser) {
+   try {
+      await this.$jCloudService.newUser(newUser);
+      this.getUsers();
+    } catch(error) {
+      console.log(error)
+    }
+    
+  }
+}
+
 };
 </script>

@@ -8,25 +8,17 @@
     </v-app-bar>
 
     <v-main>
-      <DataTable :users="users"/>
+      <DataTable/>
     </v-main>
   </v-app>
 </template>
 
 <script>
-//mport HelloWorld from './components/HelloWorld';
 import DataTable from './components/DataTable';
 export default {
   name: 'App',
-  data: () => ({
-     users: []
-    }),
   components: {
     DataTable
-  },
-  async created () {
-    this.users = await this.$jCloudService.getUsers();
-}
-
+  }
 };
 </script>
