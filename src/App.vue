@@ -19,7 +19,7 @@ import DataTable from './components/DataTable';
 export default {
   name: 'App',
   data: () => ({
-     users: [1]
+     users: []
     }),
   components: {
     DataTable
