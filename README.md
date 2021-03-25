@@ -1,5 +1,9 @@
 # cloud_app
 
+
+# Make sure to obtain .env.local file and place in root directory
+
+
 ## Project setup
 ```
 npm install
