@@ -1,16 +1,6 @@
 <template>
   <div>
-    <v-alert
-      v-model="alert"
-      color="red"
-      dense
-      dismissible
-      elevation="9"
-      outlined
-      text
-      type="error"
-      >
-{{ alertText }}</v-alert>
+    <alert :alert-flag="alertFlag" :alert-text="alertText" />
     <v-data-table
       :headers="headers"
       :items="users"
@@ -24,7 +14,7 @@
           <v-spacer></v-spacer>
           <create-or-edit-user
             :inEditMode="inEditMode"
-            :editedItem="editedItem"
+            :edited-item="editedItem"
             @save="save"
             @reset="reset"
           />
@@ -47,6 +37,7 @@
 <script>
 import CreateOrEditUser from "./CreateOrEditUser.vue";
 import DeleteUser from "./DeleteUser.vue";
+import Alert from "./Alert.vue";
 export default {
   name: "DataTable",
   data: () => ({
@@ -71,10 +62,10 @@ export default {
     },
     inEditMode: false,
     dialogDelete: false,
-    alert: false,
+    alertFlag: false,
     alertText: "",
   }),
-  components: { CreateOrEditUser, DeleteUser },
+  components: { CreateOrEditUser, DeleteUser, Alert },
   created() {
     this.getUsers();
   },
@@ -95,8 +86,11 @@ export default {
       this.dialogDelete = true;
     },
     handleError(err) {
-      this.alert = true;
+      this.alertFlag = true;
       this.alertText = err.response.data.message;
+      setTimeout(() => {
+        this.alert = false;
+      }, 20000);
     },
     async getUsers() {
       this.users = await this.$jCloudService.getUsers();
@@ -117,17 +111,17 @@ export default {
     async deleteItem(flag) {
       this.dialogDelete = false;
       if (flag === "confirm") {
-        try{
-         await this.$jCloudService.deleteUser(this.editedItem._id);
-         await this.getUsers();
+        try {
+          await this.$jCloudService.deleteUser(this.editedItem._id);
+          await this.getUsers();
         } catch (error) {
-          this.handleError(error)
+          this.handleError(error);
         }
       }
       this.$nextTick(() => {
         this.reset();
       });
-    }
-  }
+    },
+  },
 };
 </script>
