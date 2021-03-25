@@ -88,9 +88,6 @@ export default {
     handleError(err) {
       this.alertFlag = true;
       this.alertText = err.response.data.message;
-      setTimeout(() => {
-        this.alert = false;
-      }, 20000);
     },
     async getUsers() {
       this.users = await this.$jCloudService.getUsers();
